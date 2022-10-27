@@ -31,4 +31,14 @@ module.exports = {
 
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/feral-rat',
+        destination: 'https://open.spotify.com/playlist/5LwKX6PWJ2JshJGJ2IeBZR?si=8fb911782be241d4',
+        permanent: true,
+        basePath: false,
+      },
+    ];
+  },
 };
