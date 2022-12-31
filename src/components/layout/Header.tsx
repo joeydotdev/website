@@ -1,31 +1,31 @@
 import * as React from 'react';
 
-import UnderlineLink from '@/components/links/UnderlineLink';
-import UnstyledLink from '@/components/links/UnstyledLink';
+import ButtonLink from '@/components/links/ButtonLink';
 
 const links = [
-  { href: '/work', label: 'work' },
-  { href: '/posts', label: 'posts' },
-  { href: 'https://github.com/joeydotdev/website', label: 'source' },
+  { href: '/music', label: 'Music' },
+  { href: 'https://github.com/joeydotdev', label: 'Github' },
+  { href: 'https://www.linkedin.com/in/~joey/', label: 'Linkedin' },
 ];
 
 export default function Header() {
   return (
     <header className='sticky top-0 z-50 bg-white'>
       <div className='layout flex h-14 items-center justify-between'>
-        <UnstyledLink
-          href='/'
-          className='text-2xl font-bold hover:text-gray-600'
-        >
+        <ButtonLink href='/' variant='ghost' className='text-xl text-black'>
           joey.dev
-        </UnstyledLink>
+        </ButtonLink>
         <nav>
           <ul className='flex items-center justify-between space-x-4'>
             {links.map(({ href, label }) => (
               <li key={`${href}${label}`}>
-                <UnderlineLink href={href} className='hover:text-gray-600'>
+                <ButtonLink
+                  href={href}
+                  variant='ghost'
+                  className='text-sm text-black'
+                >
                   {label}
-                </UnderlineLink>
+                </ButtonLink>
               </li>
             ))}
           </ul>
