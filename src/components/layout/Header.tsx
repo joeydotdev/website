@@ -3,7 +3,7 @@ import * as React from 'react';
 import ButtonLink from '@/components/links/ButtonLink';
 
 const links = [
-  { href: '/music', label: 'Music' },
+  { href: '/blog', label: 'Blog' },
   { href: 'https://github.com/joeydotdev', label: 'Github' },
   { href: 'https://www.linkedin.com/in/~joey/', label: 'Linkedin' },
 ];
