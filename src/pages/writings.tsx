@@ -6,19 +6,12 @@ import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
 
 function BlogItem({ title, date }: { title: string; date: string }) {
-  const friendlyDateString = new Date(date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
   return (
     <div className='flex flex-col break-words rounded py-2 px-4 hover:bg-primary-50 active:bg-primary-100 md:h-16 md:flex-row md:items-center md:justify-between'>
       <div className='max-w-xs md:max-w-md'>
         <span className='font-medium'>{title}</span>
       </div>
-      <div className='text-xs italic text-neutral-500'>
-        {friendlyDateString}
-      </div>
+      <div className='text-xs italic text-neutral-500'>{date}</div>
     </div>
   );
 }
@@ -72,9 +65,20 @@ export async function getStaticProps() {
       }
     ),
     ...Array.from(tumblrPosts || []),
-  ].sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
+  ]
+    .sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+    .map((post) => {
+      return {
+        ...post,
+        date: new Date(post.date).toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        }),
+      };
+    });
 
   return {
     props: {
