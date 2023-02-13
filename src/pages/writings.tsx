@@ -1,3 +1,6 @@
+import { readFile } from 'fs/promises';
+import path from 'path';
+
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
@@ -21,7 +24,8 @@ function BlogItem({ title, date }: { title: string; date: string }) {
 }
 
 export async function getStaticProps() {
-  const [mediumPosts, cscareersPosts] = await Promise.all([
+  const blogDirectory = path.join(process.cwd(), './src/blog/');
+  const [mediumPosts, cscareersPosts, tumblrPosts] = await Promise.all([
     fetch(
       'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@joeydotdev'
     )
@@ -31,6 +35,16 @@ export async function getStaticProps() {
     fetch('https://www.cscareers.dev/api/getBlogPostsByAuthor?author=joey')
       .then((res) => res.json())
       .then((data) => data.posts)
+      .catch(() => null),
+    readFile(`${blogDirectory}tumblr.json`, 'utf8')
+      .then(
+        (data) =>
+          JSON.parse(data) as Array<{
+            title: string;
+            date: string;
+            url: string;
+          }>
+      )
       .catch(() => null),
   ]);
 
@@ -55,6 +69,7 @@ export async function getStaticProps() {
         };
       }
     ),
+    ...Array.from(tumblrPosts || []),
   ].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
