@@ -54,7 +54,9 @@ export async function getStaticProps() {
       (item: { title: string; pubDate: string; guid: string }) => {
         return {
           title: item.title,
-          date: item.pubDate,
+          // Desktop safari does not like the `item.pubDate` format.
+          // So we convert it to a JSON string on the server.
+          date: new Date(item.pubDate).toJSON(),
           url: item.guid,
         };
       }
