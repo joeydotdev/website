@@ -21,25 +21,47 @@ function BlogItem({ title, date }: { title: string; date: string }) {
 }
 
 export async function getStaticProps() {
-  const response = await fetch(
-    'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@joeydotdev'
-  )
-    .then((res) => res.json())
-    .then((data) => data.items)
-    .catch(() => null);
+  const [mediumPosts, cscareersPosts] = await Promise.all([
+    fetch(
+      'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@joeydotdev'
+    )
+      .then((res) => res.json())
+      .then((data) => data.items)
+      .catch(() => null),
+    fetch('https://www.cscareers.dev/api/getBlogPostsByAuthor?author=joey')
+      .then((res) => res.json())
+      .then((data) => data.posts)
+      .catch(() => null),
+  ]);
+
+  const posts = [
+    ...Array.from(mediumPosts || []).map(
+      // @ts-expect-error Too lazy to type properly things these days.
+      (item: { title: string; pubDate: string; guid: string }) => {
+        return {
+          title: item.title,
+          date: item.pubDate,
+          url: item.guid,
+        };
+      }
+    ),
+    ...Array.from(cscareersPosts || []).map(
+      // @ts-expect-error Too lazy to type properly things these days.
+      (item: { title: string; date: string; url: string }) => {
+        return {
+          title: item.title,
+          date: item.date,
+          url: item.url,
+        };
+      }
+    ),
+  ].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 
   return {
     props: {
-      posts: Array.from(response || []).map(
-        // @ts-expect-error Too lazy to type properly things these days.
-        (item: { title: string; pubDate: string; guid: string }) => {
-          return {
-            title: item.title,
-            date: item.pubDate,
-            url: item.guid,
-          };
-        }
-      ),
+      posts,
     },
   };
 }
