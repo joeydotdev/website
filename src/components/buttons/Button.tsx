@@ -38,23 +38,23 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type='button'
         disabled={disabled}
         className={clsxm(
-          'inline-flex items-center rounded-sm px-2.5 py-1 text-sm font-medium',
-          'focus:outline-none focus-visible:ring focus-visible:ring-primary-400 focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
+          'inline-flex items-center rounded-none px-2 py-0.5 text-[11px] font-bold',
+          'focus:outline-none focus-visible:ring-1 focus-visible:ring-primary-400',
           'transition-colors duration-75',
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
-              'bg-primary-500 text-primary-50',
-              'border border-primary-600',
-              'hover:bg-primary-600 hover:text-primary-50',
+              'bg-primary-600 text-primary-50',
+              'border border-primary-500',
+              'hover:bg-primary-500 hover:text-primary-50',
               'active:bg-primary-700',
-              'disabled:bg-primary-700 disabled:hover:bg-primary-700',
+              'disabled:bg-primary-800 disabled:hover:bg-primary-800',
             ],
             variant === 'outline' && [
               isDarkBg
                 ? [
-                    'text-primary-200',
-                    'border border-primary-600',
+                    'text-link',
+                    'border border-border',
                     'hover:bg-primary-800 active:bg-primary-700 disabled:bg-primary-800',
                   ]
                 : [
@@ -64,20 +64,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                   ],
             ],
             variant === 'ghost' && [
-              'shadow-none border border-transparent',
+              'border border-transparent shadow-none',
               isDarkBg
-                ? 'text-ink hover:bg-primary-800 active:bg-primary-700 disabled:bg-primary-800'
-                : 'text-primary-500 hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
+                ? 'text-link hover:bg-primary-800 hover:text-primary-50 active:bg-primary-700'
+                : 'text-primary-500 hover:bg-primary-50 active:bg-primary-100',
             ],
             variant === 'light' && [
-              'bg-primary-50 text-primary-900',
-              'border border-primary-300',
-              'hover:bg-primary-100 hover:text-primary-900',
+              'bg-primary-100 text-primary-900',
+              'border border-primary-400',
+              'hover:bg-primary-50',
               'active:bg-primary-200 disabled:bg-primary-200',
             ],
             variant === 'dark' && [
               'bg-primary-800 text-primary-50',
-              'border border-primary-700',
+              'border border-border',
               'hover:bg-primary-700 active:bg-primary-600 disabled:bg-primary-800',
             ],
           ],
@@ -96,7 +96,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               {
                 'text-primary-50': ['primary', 'dark'].includes(variant),
                 'text-primary-900': ['light'].includes(variant),
-                'text-primary-200': ['outline', 'ghost'].includes(variant),
+                'text-link': ['outline', 'ghost'].includes(variant),
               }
             )}
           >

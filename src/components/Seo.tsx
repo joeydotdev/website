@@ -61,8 +61,8 @@ export default function Seo(props: SeoProps) {
         </>
       )}
 
-      <meta name='msapplication-TileColor' content='#37372d' />
-      <meta name='theme-color' content='#37372d' />
+      <meta name='msapplication-TileColor' content='#161612' />
+      <meta name='theme-color' content='#161612' />
     </Head>
   );
 }

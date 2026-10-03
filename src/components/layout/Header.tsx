@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ButtonLink from '@/components/links/ButtonLink';
+import UnstyledLink from '@/components/links/UnstyledLink';
 
 const links = [
   { href: '/writings', label: 'Writings' },
@@ -10,22 +10,24 @@ const links = [
 
 export default function Header() {
   return (
-    <header className='sticky top-0 z-50 border-b border-primary-800/80 bg-surface/95 backdrop-blur-sm'>
-      <div className='layout flex h-11 items-center justify-between'>
-        <ButtonLink href='/' variant='ghost' className='px-1.5 text-base'>
+    <header className='layout pt-2'>
+      <div className='forum-util'>
+        {links.map(({ href, label }, i) => (
+          <React.Fragment key={`${href}${label}`}>
+            {i > 0 ? <span className='text-primary-600'>·</span> : null}
+            <UnstyledLink href={href}>{label}</UnstyledLink>
+          </React.Fragment>
+        ))}
+      </div>
+
+      <div className='forum-banner'>
+        <UnstyledLink
+          href='/'
+          className='forum-banner-title hover:no-underline'
+        >
           joey.dev
-        </ButtonLink>
-        <nav>
-          <ul className='flex items-center space-x-0.5'>
-            {links.map(({ href, label }) => (
-              <li key={`${href}${label}`}>
-                <ButtonLink href={href} variant='ghost' className='px-1.5'>
-                  {label}
-                </ButtonLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        </UnstyledLink>
+        <div className='forum-banner-sub'>personal board · est. forever</div>
       </div>
     </header>
   );

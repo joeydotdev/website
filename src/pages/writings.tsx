@@ -5,17 +5,6 @@ import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
 
-function BlogItem({ title, date }: { title: string; date: string }) {
-  return (
-    <div className='flex flex-col break-words rounded-sm px-2 py-1.5 hover:bg-primary-800 active:bg-primary-700 md:flex-row md:items-baseline md:justify-between md:gap-4'>
-      <div className='min-w-0 flex-1'>
-        <span className='text-sm font-medium text-ink'>{title}</span>
-      </div>
-      <div className='shrink-0 text-xs text-ink-muted tabular-nums'>{date}</div>
-    </div>
-  );
-}
-
 export async function getStaticProps() {
   const blogDirectory = path.join(process.cwd(), './src/blog/');
   const [mediumPosts, cscareersPosts, tumblrPosts] = await Promise.all([
@@ -73,7 +62,7 @@ export async function getStaticProps() {
       return {
         ...post,
         date: new Date(post.date).toLocaleDateString('en-US', {
-          month: 'long',
+          month: 'short',
           day: 'numeric',
           year: 'numeric',
         }),
@@ -96,15 +85,44 @@ export default function BlogPage({ posts }: PropsType) {
     <Layout>
       <Seo templateTitle='blog' />
       <main>
-        <section>
-          <div className='layout mt-3 flex flex-col justify-center space-y-0.5'>
-            {posts.map((post) => {
-              return (
-                <UnstyledLink href={post.url} key={post.url}>
-                  <BlogItem title={post.title} date={post.date} />
-                </UnstyledLink>
-              );
-            })}
+        <section className='layout pb-6'>
+          <div className='forum-crumb'>
+            <UnstyledLink href='/'>joey.dev</UnstyledLink>
+            {' » '}
+            <span className='text-ink'>Writings</span>
+          </div>
+
+          <div className='forum-board'>
+            <div className='forum-cat'>
+              <span>Writings</span>
+              <span className='forum-cat-tools' aria-hidden>
+                −
+              </span>
+            </div>
+
+            <div className='forum-cols' aria-hidden>
+              <div />
+              <div>Topic</div>
+              <div>Last Post</div>
+            </div>
+
+            {posts.map((post, i) => (
+              <UnstyledLink
+                href={post.url}
+                key={post.url}
+                className={`forum-row ${
+                  i % 2 === 0 ? 'forum-row-a' : 'forum-row-b'
+                } no-underline hover:no-underline`}
+              >
+                <div className='forum-status'>
+                  <span className='forum-status-icon' aria-hidden />
+                </div>
+                <div>
+                  <span className='forum-topic'>{post.title}</span>
+                </div>
+                <div className='forum-meta'>{post.date}</div>
+              </UnstyledLink>
+            ))}
           </div>
         </section>
       </main>
