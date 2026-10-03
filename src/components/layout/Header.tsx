@@ -12,22 +12,24 @@ const links = [
 export default function Header() {
   return (
     <header className='layout pt-2'>
-      <div className='forum-util'>
-        {links.map(({ href, label }, i) => (
-          <React.Fragment key={`${href}${label}`}>
-            {i > 0 ? <span className='text-primary-600'>·</span> : null}
-            <UnstyledLink href={href}>{label}</UnstyledLink>
-          </React.Fragment>
-        ))}
-      </div>
+      <div className='forum-masthead'>
+        <div className='forum-banner'>
+          <UnstyledLink
+            href='/'
+            className='forum-banner-title hover:no-underline'
+          >
+            joey.dev
+          </UnstyledLink>
+        </div>
 
-      <div className='forum-banner'>
-        <UnstyledLink
-          href='/'
-          className='forum-banner-title hover:no-underline'
-        >
-          joey.dev
-        </UnstyledLink>
+        <nav className='forum-nav' aria-label='Site'>
+          {links.map(({ href, label }, i) => (
+            <React.Fragment key={`${href}${label}`}>
+              {i > 0 ? <span className='text-primary-600'>·</span> : null}
+              <UnstyledLink href={href}>{label}</UnstyledLink>
+            </React.Fragment>
+          ))}
+        </nav>
       </div>
     </header>
   );
