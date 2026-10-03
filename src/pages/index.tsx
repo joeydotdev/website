@@ -1,4 +1,6 @@
+import { getPosts } from '@/lib/getPosts';
 import { lastFmClient } from '@/lib/lastfm';
+import { formatForumDate, POSTER_NAME } from '@/lib/posts';
 
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -13,16 +15,23 @@ type PropsType = {
       url: string;
     };
   };
+  lastWriting: {
+    slug: string;
+    title: string;
+    dateLabel: string;
+  } | null;
 };
 
 export async function getServerSideProps() {
-  const recentTracks = await lastFmClient
-    .getRecentTracks({ limit: 2 })
-    .catch((e) => {
+  const [recentTracks, posts] = await Promise.all([
+    lastFmClient.getRecentTracks({ limit: 2 }).catch((e) => {
       // eslint-disable-next-line no-console
       console.log(e);
       return null;
-    });
+    }),
+    getPosts().catch(() => []),
+  ]);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tracks: any[] = Array.from(recentTracks?.track || []);
   const isCurrentlyListening = tracks.some(
@@ -35,6 +44,8 @@ export async function getServerSideProps() {
     ? `${tracks[0].name} - ${tracks[0].artist['#text']}`
     : null;
 
+  const latest = posts[0] || null;
+
   return {
     props: {
       lastfm: {
@@ -45,6 +56,13 @@ export async function getServerSideProps() {
           isCurrentlyListening,
         },
       },
+      lastWriting: latest
+        ? {
+            slug: latest.slug,
+            title: latest.title,
+            dateLabel: formatForumDate(latest.date),
+          }
+        : null,
     },
   };
 }
@@ -104,14 +122,14 @@ export default function HomePage(props: PropsType) {
                 −
               </span>
             </div>
-            <div className='forum-cols' aria-hidden>
+            <div className='forum-cols forum-cols-board'>
               <div />
               <div>Forum</div>
-              <div>Info</div>
+              <div>Last Post</div>
             </div>
             <UnstyledLink
               href='/writings'
-              className='forum-row forum-row-a no-underline hover:no-underline'
+              className='forum-row forum-row-board forum-row-a no-underline hover:no-underline'
             >
               <div className='forum-status'>
                 <span className='forum-status-icon' aria-hidden />
@@ -120,11 +138,20 @@ export default function HomePage(props: PropsType) {
                 <span className='forum-topic'>Writings</span>
                 <div className='forum-meta'>Posts, notes, and long reads</div>
               </div>
-              <div className='forum-meta'>Post</div>
+              <div className='forum-last-post'>
+                {props.lastWriting ? (
+                  <>
+                    <span>{props.lastWriting.dateLabel}</span>
+                    <strong>{POSTER_NAME}</strong>
+                  </>
+                ) : (
+                  <span>—</span>
+                )}
+              </div>
             </UnstyledLink>
             <UnstyledLink
               href='https://github.com/joeydotdev'
-              className='forum-row forum-row-b no-underline hover:no-underline'
+              className='forum-row forum-row-board forum-row-b no-underline hover:no-underline'
             >
               <div className='forum-status'>
                 <span className='forum-status-icon' aria-hidden />
@@ -133,11 +160,13 @@ export default function HomePage(props: PropsType) {
                 <span className='forum-topic'>Github</span>
                 <div className='forum-meta'>Code and side projects</div>
               </div>
-              <div className='forum-meta'>External »</div>
+              <div className='forum-last-post'>
+                <span>External »</span>
+              </div>
             </UnstyledLink>
             <UnstyledLink
               href='https://x.com/joeydotdev'
-              className='forum-row forum-row-a no-underline hover:no-underline'
+              className='forum-row forum-row-board forum-row-a no-underline hover:no-underline'
             >
               <div className='forum-status'>
                 <span className='forum-status-icon' aria-hidden />
@@ -146,7 +175,9 @@ export default function HomePage(props: PropsType) {
                 <span className='forum-topic'>X</span>
                 <div className='forum-meta'>Updates and posts</div>
               </div>
-              <div className='forum-meta'>External »</div>
+              <div className='forum-last-post'>
+                <span>External »</span>
+              </div>
             </UnstyledLink>
           </div>
         </section>
