@@ -44,7 +44,6 @@ export const getStaticProps: GetStaticProps<PropsType> = async (ctx) => {
 
 export default function WritingTopicPage({ post, postCount }: PropsType) {
   const postedAt = formatForumDateTime(post.date);
-  const joined = 'Est. forever';
   const paragraphs = (post.excerpt || '')
     .split(/(?<=\.)\s+/)
     .filter(Boolean)
@@ -101,14 +100,6 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
                 <div>
                   <dt>Posts: </dt>
                   <dd>{postCount}</dd>
-                </div>
-                <div>
-                  <dt>Joined: </dt>
-                  <dd>{joined}</dd>
-                </div>
-                <div>
-                  <dt>From: </dt>
-                  <dd>the internet</dd>
                 </div>
               </dl>
             </aside>

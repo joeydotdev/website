@@ -29,8 +29,8 @@ export default function ForumAvatar({
     <img
       src={src}
       alt={alt}
-      width={size === 'lg' ? 96 : 32}
-      height={size === 'lg' ? 96 : 32}
+      width={size === 'lg' ? 56 : 32}
+      height={size === 'lg' ? 56 : 32}
       className={clsxm(
         'forum-avatar',
         size === 'lg' ? 'forum-avatar-lg' : 'forum-avatar-sm',
