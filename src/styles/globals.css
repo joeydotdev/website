@@ -123,6 +123,10 @@
   }
 
   .forum-cat-tools {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     font-size: 10px;
     font-weight: 400;
     color: var(--color-primary-200);
@@ -130,8 +134,18 @@
     background: var(--color-primary-800);
     width: 14px;
     height: 14px;
-    line-height: 12px;
+    line-height: 1;
     text-align: center;
+    cursor: pointer;
+  }
+
+  .forum-cat-tools:hover {
+    color: var(--color-primary-50);
+    background: var(--color-primary-700);
+  }
+
+  .forum-board-collapsed .forum-cat {
+    border-bottom: 0;
   }
 
   .forum-cols {

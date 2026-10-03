@@ -2,6 +2,7 @@ import { getPosts } from '@/lib/getPosts';
 import { lastFmClient } from '@/lib/lastfm';
 import { formatForumDate, POSTER_NAME } from '@/lib/posts';
 
+import ForumBoard from '@/components/ForumBoard';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
@@ -79,13 +80,7 @@ export default function HomePage(props: PropsType) {
             <span className='text-ink'>Home</span>
           </div>
 
-          <div className='forum-board'>
-            <div className='forum-cat'>
-              <span>Profile</span>
-              <span className='forum-cat-tools' aria-hidden>
-                −
-              </span>
-            </div>
+          <ForumBoard title='Profile'>
             <div className='forum-panel-body space-y-1.5'>
               <p>Learning and building</p>
               <p>
@@ -113,15 +108,9 @@ export default function HomePage(props: PropsType) {
                 </div>
               ) : null}
             </div>
-          </div>
+          </ForumBoard>
 
-          <div className='forum-board mt-2'>
-            <div className='forum-cat'>
-              <span>Board Index</span>
-              <span className='forum-cat-tools' aria-hidden>
-                −
-              </span>
-            </div>
+          <ForumBoard title='Board Index' className='mt-2'>
             <div className='forum-cols forum-cols-board'>
               <div />
               <div>Forum</div>
@@ -179,7 +168,7 @@ export default function HomePage(props: PropsType) {
                 <span>External »</span>
               </div>
             </UnstyledLink>
-          </div>
+          </ForumBoard>
         </section>
       </main>
     </Layout>

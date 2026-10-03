@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 const defaultMeta = {
   title: 'joey.dev',
   siteName: 'joey.dev',
-  description: `Joey Colon's website`,
+  description: `joey's website`,
   url: 'https://joey.dev',
   type: 'website',
   robots: 'follow, index',
@@ -57,7 +57,7 @@ export default function Seo(props: SeoProps) {
             property='og:publish_date'
             content={meta.date}
           />
-          <meta name='author' property='article:author' content='Joey Colon' />
+          <meta name='author' property='article:author' content='joey' />
         </>
       )}
 

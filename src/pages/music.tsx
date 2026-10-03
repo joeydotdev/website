@@ -1,3 +1,4 @@
+import ForumBoard from '@/components/ForumBoard';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
@@ -32,13 +33,7 @@ export default function MusicPage() {
             <span className='text-ink'>Music</span>
           </div>
 
-          <div className='forum-board'>
-            <div className='forum-cat'>
-              <span>Music</span>
-              <span className='forum-cat-tools' aria-hidden>
-                −
-              </span>
-            </div>
+          <ForumBoard title='Music'>
             <div className='forum-cols' aria-hidden>
               <div />
               <div>Forum</div>
@@ -61,7 +56,7 @@ export default function MusicPage() {
                 <div className='forum-meta'>{link.meta}</div>
               </UnstyledLink>
             ))}
-          </div>
+          </ForumBoard>
         </section>
       </main>
     </Layout>

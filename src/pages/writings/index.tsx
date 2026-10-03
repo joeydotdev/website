@@ -1,6 +1,7 @@
 import { getPosts } from '@/lib/getPosts';
 import { type Post, formatForumDate, POSTER_NAME } from '@/lib/posts';
 
+import ForumBoard from '@/components/ForumBoard';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
@@ -40,14 +41,7 @@ export default function BlogPage({ posts }: PropsType) {
             <span className='text-ink'>Writings</span>
           </div>
 
-          <div className='forum-board'>
-            <div className='forum-cat'>
-              <span>Writings</span>
-              <span className='forum-cat-tools' aria-hidden>
-                −
-              </span>
-            </div>
-
+          <ForumBoard title='Writings'>
             <div className='forum-cols forum-cols-board'>
               <div />
               <div>Topic</div>
@@ -74,7 +68,7 @@ export default function BlogPage({ posts }: PropsType) {
                 </div>
               </UnstyledLink>
             ))}
-          </div>
+          </ForumBoard>
         </section>
       </main>
     </Layout>

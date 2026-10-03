@@ -8,7 +8,7 @@ export type Post = {
   author: string;
 };
 
-export const POSTER_NAME = 'Joey Colon';
+export const POSTER_NAME = 'joey';
 
 export function slugify(title: string, url: string): string {
   const base = title

@@ -89,7 +89,7 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
               <dl className='forum-poster-stats'>
                 <div>
                   <dt>Group: </dt>
-                  <dd>Administrators</dd>
+                  <dd>Webmaster</dd>
                 </div>
                 <div>
                   <dt>Posts: </dt>
@@ -130,7 +130,12 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
               <div className='forum-post-foot'>
                 <div className='forum-btn-row'>
                   <span className='forum-btn'>Card</span>
-                  <span className='forum-btn'>PM</span>
+                  <UnstyledLink
+                    href='https://x.com/joeydotdev'
+                    className='forum-btn'
+                  >
+                    PM
+                  </UnstyledLink>
                 </div>
                 <div className='forum-btn-row'>
                   <a
