@@ -312,6 +312,8 @@
   }
 
   .forum-banner {
+    display: flex;
+    align-items: center;
     border: 1px solid var(--color-border);
     background: linear-gradient(
         135deg,
@@ -323,7 +325,8 @@
         var(--color-primary-700),
         var(--color-primary-900)
       );
-    padding: 10px 12px;
+    padding: 24px 14px;
+    min-height: 64px;
     margin-bottom: 6px;
   }
 
