@@ -5,6 +5,7 @@ import UnstyledLink from '@/components/links/UnstyledLink';
 const links = [
   { href: '/writings', label: 'Writings' },
   { href: 'https://github.com/joeydotdev', label: 'Github' },
+  { href: 'https://x.com/joeydotdev', label: 'X' },
   { href: 'https://www.linkedin.com/in/~joey/', label: 'Linkedin' },
 ];
 

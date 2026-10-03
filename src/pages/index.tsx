@@ -120,7 +120,7 @@ export default function HomePage(props: PropsType) {
                 <span className='forum-topic'>Writings</span>
                 <div className='forum-meta'>Posts, notes, and long reads</div>
               </div>
-              <div className='forum-meta'>View topics »</div>
+              <div className='forum-meta'>Post</div>
             </UnstyledLink>
             <UnstyledLink
               href='https://github.com/joeydotdev'
@@ -132,6 +132,19 @@ export default function HomePage(props: PropsType) {
               <div>
                 <span className='forum-topic'>Github</span>
                 <div className='forum-meta'>Code and side projects</div>
+              </div>
+              <div className='forum-meta'>External »</div>
+            </UnstyledLink>
+            <UnstyledLink
+              href='https://x.com/joeydotdev'
+              className='forum-row forum-row-a no-underline hover:no-underline'
+            >
+              <div className='forum-status'>
+                <span className='forum-status-icon' aria-hidden />
+              </div>
+              <div>
+                <span className='forum-topic'>X</span>
+                <div className='forum-meta'>Updates and posts</div>
               </div>
               <div className='forum-meta'>External »</div>
             </UnstyledLink>
