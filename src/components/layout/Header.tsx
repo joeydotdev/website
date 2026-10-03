@@ -28,7 +28,6 @@ export default function Header() {
         >
           joey.dev
         </UnstyledLink>
-        <div className='forum-banner-sub'>personal board · est. forever</div>
       </div>
     </header>
   );

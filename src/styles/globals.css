@@ -335,12 +335,6 @@
     text-shadow: 0 0 12px rgb(124 123 103 / 55%), 0 1px 0 rgb(0 0 0 / 60%);
   }
 
-  .forum-banner-sub {
-    margin-top: 2px;
-    font-size: 11px;
-    color: var(--color-primary-300);
-  }
-
   .forum-util {
     display: flex;
     align-items: center;
