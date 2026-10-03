@@ -358,17 +358,59 @@
 
   .forum-cols-board,
   .forum-row-board {
-    grid-template-columns: 28px 1fr 168px;
+    grid-template-columns: 28px 1fr 200px;
   }
 
   .forum-last-post {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
     font-size: 11px;
     line-height: 1.35;
     color: var(--color-ink-muted);
   }
 
-  .forum-last-post .forum-handle {
+  .forum-last-post-meta {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .forum-last-post-title {
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #b10205;
+    font-weight: 700;
+  }
+
+  .forum-last-post .forum-handle {
+    display: inline;
+  }
+
+  .forum-avatar {
+    display: block;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    background: var(--color-primary-900);
+  }
+
+  .forum-avatar-sm {
+    width: 32px;
+    height: 32px;
+  }
+
+  .forum-avatar-lg {
+    width: 96px;
+    height: 96px;
+    border-color: var(--color-primary-500);
+  }
+
+  .forum-poster-avatar {
+    margin: 0 0 6px;
   }
 
   /* IPB-style member handle: white ~ + red name */
@@ -418,7 +460,7 @@
 
   .forum-poster-name {
     font-size: 13px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
   .forum-poster-name .forum-handle {

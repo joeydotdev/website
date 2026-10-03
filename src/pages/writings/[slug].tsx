@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPostBySlug, getPosts } from '@/lib/getPosts';
 import { type Post, formatForumDateTime, POSTER_NAME } from '@/lib/posts';
 
+import ForumAvatar from '@/components/forum/ForumAvatar';
 import ForumHandle from '@/components/forum/ForumHandle';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -88,6 +89,7 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
               <div className='forum-poster-name'>
                 <ForumHandle name={POSTER_NAME} />
               </div>
+              <ForumAvatar size='lg' className='forum-poster-avatar' />
               <div className='forum-poster-rank'>Member</div>
               <dl className='forum-poster-stats'>
                 <div>

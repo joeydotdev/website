@@ -10,6 +10,13 @@ export type Post = {
 
 export const POSTER_NAME = 'joey';
 
+/** Local forum avatar (copied into public/; avoids hotlinking twimg). */
+export const POSTER_AVATAR_SRC = '/images/joey-avatar.jpg';
+
+/** Remote fallback if the local asset is unavailable. */
+export const POSTER_AVATAR_REMOTE =
+  'https://pbs.twimg.com/profile_images/2055903626594590720/o54xc4Sz_400x400.jpg';
+
 export function slugify(title: string, url: string): string {
   const base = title
     .toLowerCase()
