@@ -54,24 +54,30 @@ export default function HomePage(props: PropsType) {
     <Layout>
       <Seo />
       <main>
-        <section className='bg-white'>
-          <div className='layout mt-2 flex flex-col justify-center'>
-            <div className='text-sm text-neutral-800'>
-              <div className='space-y-2'>
+        <section>
+          <div className='layout mt-3 flex flex-col justify-center'>
+            <div className='text-sm text-ink'>
+              <div className='space-y-1'>
                 <p>Learning and building</p>
                 <p>
                   Write lots of code at{' '}
-                  <UnstyledLink className='font-bold' href='https://uber.com/'>
+                  <UnstyledLink
+                    className='font-medium text-primary-200 underline decoration-primary-600 underline-offset-2 hover:text-primary-100'
+                    href='https://uber.com/'
+                  >
                     Uber
                   </UnstyledLink>
                 </p>
                 <p>
-                  On the internet <span className='font-bold'>@joeydotdev</span>
+                  On the internet{' '}
+                  <span className='font-medium text-primary-200'>
+                    @joeydotdev
+                  </span>
                 </p>
               </div>
               {props.lastfm.isConnected ? (
-                <div className='mt-2'>
-                  <div>
+                <div className='mt-3 space-y-0.5'>
+                  <div className='text-ink-muted'>
                     {props.lastfm.lastTrack.isCurrentlyListening ? (
                       <>Currently listening to:</>
                     ) : (
@@ -79,7 +85,7 @@ export default function HomePage(props: PropsType) {
                     )}
                   </div>
                   <UnstyledLink
-                    className='text-xs text-neutral-500'
+                    className='text-xs text-primary-300 hover:text-primary-100'
                     href={props.lastfm.lastTrack.url}
                     target='_blank'
                   >

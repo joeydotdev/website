@@ -33,6 +33,11 @@ module.exports = {
           900: withOpacityValue('--tw-color-primary-900'),
         },
         dark: '#222222',
+        surface: withOpacityValue('--tw-color-surface'),
+        ink: {
+          DEFAULT: withOpacityValue('--tw-color-ink'),
+          muted: withOpacityValue('--tw-color-ink-muted'),
+        },
       },
       keyframes: {
         flicker: {

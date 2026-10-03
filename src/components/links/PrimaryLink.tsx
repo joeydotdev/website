@@ -14,8 +14,8 @@ const PrimaryLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         {...rest}
         className={clsxm(
           'inline-flex items-center',
-          'font-medium text-primary-600 underline hover:text-primary-500',
-          'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          'font-medium text-primary-300 underline decoration-primary-600 underline-offset-2 hover:text-primary-100',
+          'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-primary-400 focus-visible:ring-offset-1 focus-visible:ring-offset-surface',
           className
         )}
       >

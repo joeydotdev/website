@@ -7,11 +7,11 @@ import Seo from '@/components/Seo';
 
 function BlogItem({ title, date }: { title: string; date: string }) {
   return (
-    <div className='flex flex-col break-words rounded py-2 px-4 hover:bg-primary-50 active:bg-primary-100 md:h-16 md:flex-row md:items-center md:justify-between'>
-      <div className='max-w-xs md:max-w-md'>
-        <span className='font-medium'>{title}</span>
+    <div className='flex flex-col break-words rounded-sm px-2 py-1.5 hover:bg-primary-800 active:bg-primary-700 md:flex-row md:items-baseline md:justify-between md:gap-4'>
+      <div className='min-w-0 flex-1'>
+        <span className='text-sm font-medium text-ink'>{title}</span>
       </div>
-      <div className='text-xs italic text-neutral-500'>{date}</div>
+      <div className='shrink-0 text-xs text-ink-muted tabular-nums'>{date}</div>
     </div>
   );
 }
@@ -96,8 +96,8 @@ export default function BlogPage({ posts }: PropsType) {
     <Layout>
       <Seo templateTitle='blog' />
       <main>
-        <section className='bg-white'>
-          <div className='layout mt-2 flex flex-col justify-center space-y-2'>
+        <section>
+          <div className='layout mt-3 flex flex-col justify-center space-y-0.5'>
             {posts.map((post) => {
               return (
                 <UnstyledLink href={post.url} key={post.url}>

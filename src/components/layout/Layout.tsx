@@ -9,14 +9,9 @@ export default function Layout({
   children: React.ReactNode;
   showHeader?: boolean;
 }) {
-  // Put Header or Footer Here
   return (
     <>
-      {showHeader && (
-        <div className='mt-2'>
-          <Header />
-        </div>
-      )}
+      {showHeader && <Header />}
       {children}
     </>
   );

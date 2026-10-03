@@ -5,8 +5,8 @@
 :root {
   /* #region  /**=========== Primary Color =========== */
   /* Olive interaction palette — base #7c7b67 (primary-500).
-     Hover: primary-600 (filled) / primary-50 (soft surfaces) / primary-500 (links).
-     Active/pressed: primary-500 (filled, lighter vs hover) / primary-100 (soft, darker vs hover). */
+     Soft surfaces (dark app): hover primary-800, active primary-700.
+     Filled: hover primary-600, active primary-500. */
   --tw-color-primary-50: 241 240 232;
   --tw-color-primary-100: 231 230 221;
   --tw-color-primary-200: 211 210 199;
@@ -17,17 +17,25 @@
   --tw-color-primary-700: 86 85 71;
   --tw-color-primary-800: 68 68 56;
   --tw-color-primary-900: 55 55 45;
-  --color-primary-50: rgb(var(--tw-color-primary-50)); /* #f1f0e8 — lighter */
+  --color-primary-50: rgb(var(--tw-color-primary-50)); /* #f1f0e8 — lighter / ink */
   --color-primary-100: rgb(var(--tw-color-primary-100)); /* #e7e6dd */
   --color-primary-200: rgb(var(--tw-color-primary-200)); /* #d3d2c7 */
-  --color-primary-300: rgb(var(--tw-color-primary-300)); /* #bab9ac */
+  --color-primary-300: rgb(var(--tw-color-primary-300)); /* #bab9ac — muted ink */
   --color-primary-400: rgb(var(--tw-color-primary-400)); /* #9f9e8d */
   --color-primary-500: rgb(var(--tw-color-primary-500)); /* #7c7b67 — base */
   --color-primary-600: rgb(var(--tw-color-primary-600)); /* #676655 — darker */
-  --color-primary-700: rgb(var(--tw-color-primary-700)); /* #565547 */
-  --color-primary-800: rgb(var(--tw-color-primary-800)); /* #444438 */
-  --color-primary-900: rgb(var(--tw-color-primary-900)); /* #37372d */
+  --color-primary-700: rgb(var(--tw-color-primary-700)); /* #565547 — soft active */
+  --color-primary-800: rgb(var(--tw-color-primary-800)); /* #444438 — soft hover */
+  --color-primary-900: rgb(var(--tw-color-primary-900)); /* #37372d — surface */
   /* #endregion  /**======== Primary Color =========== */
+
+  /* App chrome — darker olive surface + readable ink */
+  --tw-color-surface: var(--tw-color-primary-900);
+  --tw-color-ink: var(--tw-color-primary-50);
+  --tw-color-ink-muted: var(--tw-color-primary-300);
+  --color-surface: rgb(var(--tw-color-surface));
+  --color-ink: rgb(var(--tw-color-ink));
+  --color-ink-muted: rgb(var(--tw-color-ink-muted));
 }
 
 @layer base {
@@ -76,23 +84,28 @@
 
   body,
   .p {
-    @apply font-primary text-sm md:text-base;
+    @apply font-primary text-sm;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
   }
   /* #endregion  /**======== Typography =========== */
 
   .layout {
-    /* 672px */
-    max-width: 42rem;
-    @apply mx-auto w-11/12;
+    /* 640px — slightly tighter column */
+    max-width: 40rem;
+    @apply mx-auto w-[92%];
   }
 
   .bg-dark a.custom-link {
     @apply border-gray-200 hover:border-gray-200/0;
   }
 
-  /* Class to adjust with sticky footer */
+  /* Class to adjust with sticky footer (header h-11 = 44px) */
   .min-h-main {
-    @apply min-h-[calc(100vh-56px)];
+    @apply min-h-[calc(100vh-44px)];
   }
 }
 
