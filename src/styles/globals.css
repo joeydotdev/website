@@ -47,7 +47,7 @@
   --color-ink-muted: rgb(var(--tw-color-ink-muted));
   --color-link: rgb(var(--tw-color-link));
 
-  /* Glossy IPB olive chrome: specular → micro-grid mesh → bevel gradient */
+  /* Glossy IPB olive chrome: specular highlight + bevel gradient (no mesh) */
   --forum-gloss-fill: linear-gradient(
       to bottom,
       rgb(255 255 255 / 28%) 0%,
@@ -56,16 +56,6 @@
       rgb(0 0 0 / 0%) 58%,
       rgb(0 0 0 / 22%) 100%
     ),
-    repeating-linear-gradient(
-      0deg,
-      rgb(0 0 0 / 0%) 0 2px,
-      rgb(40 38 28 / 22%) 2px 3px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgb(0 0 0 / 0%) 0 2px,
-      rgb(40 38 28 / 22%) 2px 3px
-    ),
     linear-gradient(
       to bottom,
       #9f9e8d 0%,
@@ -73,6 +63,23 @@
       #7c7b67 48%,
       #5f5e4e 78%,
       #6a6958 100%
+    );
+
+  /* Subtler gloss for column header rows (.forum-cols) */
+  --forum-gloss-fill-subtle: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 14%) 0%,
+      rgb(255 255 255 / 4%) 20%,
+      rgb(255 255 255 / 0%) 45%,
+      rgb(0 0 0 / 0%) 60%,
+      rgb(0 0 0 / 20%) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      #5a5948 0%,
+      #4a4a3c 40%,
+      #3a3a30 78%,
+      #444438 100%
     );
 }
 
@@ -196,13 +203,17 @@
     display: grid;
     grid-template-columns: 28px 1fr 140px;
     gap: 0;
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-primary-800);
+    border-top: 1px solid rgb(186 185 172 / 18%);
+    border-bottom: 1px solid rgb(55 55 45 / 85%);
+    background: var(--forum-gloss-fill-subtle);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%),
+      inset 0 -1px 0 rgb(0 0 0 / 22%);
     color: var(--color-primary-200);
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.02em;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 45%);
   }
 
   .forum-cols > * {
@@ -382,8 +393,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #b10205;
+    color: var(--color-link);
     font-weight: 700;
+  }
+
+  .forum-row:hover .forum-last-post-title {
+    color: var(--color-primary-50);
+    text-decoration: underline;
   }
 
   .forum-last-post .forum-handle {
