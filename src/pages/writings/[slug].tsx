@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPostBySlug, getPosts } from '@/lib/getPosts';
 import { type Post, formatForumDateTime, POSTER_NAME } from '@/lib/posts';
 
+import ForumHandle from '@/components/forum/ForumHandle';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
@@ -84,12 +85,16 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
 
           <article className='forum-post'>
             <aside className='forum-poster'>
-              <div className='forum-poster-name'>{POSTER_NAME}</div>
+              <div className='forum-poster-name'>
+                <ForumHandle name={POSTER_NAME} />
+              </div>
               <div className='forum-poster-rank'>Member</div>
               <dl className='forum-poster-stats'>
                 <div>
                   <dt>Group: </dt>
-                  <dd>Webmaster</dd>
+                  <dd>
+                    <ForumHandle name='Webmaster' />
+                  </dd>
                 </div>
                 <div>
                   <dt>Posts: </dt>

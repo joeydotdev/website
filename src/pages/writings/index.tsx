@@ -1,6 +1,7 @@
 import { getPosts } from '@/lib/getPosts';
 import { type Post, formatForumDate, POSTER_NAME } from '@/lib/posts';
 
+import ForumHandle from '@/components/forum/ForumHandle';
 import ForumBoard from '@/components/ForumBoard';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -64,7 +65,7 @@ export default function BlogPage({ posts }: PropsType) {
                 </div>
                 <div className='forum-last-post'>
                   <span>{post.dateLabel}</span>
-                  <strong>{POSTER_NAME}</strong>
+                  <ForumHandle name={POSTER_NAME} />
                 </div>
               </UnstyledLink>
             ))}

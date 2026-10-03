@@ -2,6 +2,7 @@ import { getPosts } from '@/lib/getPosts';
 import { lastFmClient } from '@/lib/lastfm';
 import { formatForumDate, POSTER_NAME } from '@/lib/posts';
 
+import ForumHandle from '@/components/forum/ForumHandle';
 import ForumBoard from '@/components/ForumBoard';
 import Layout from '@/components/layout/Layout';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -131,7 +132,7 @@ export default function HomePage(props: PropsType) {
                 {props.lastWriting ? (
                   <>
                     <span>{props.lastWriting.dateLabel}</span>
-                    <strong>{POSTER_NAME}</strong>
+                    <ForumHandle name={POSTER_NAME} />
                   </>
                 ) : (
                   <span>—</span>

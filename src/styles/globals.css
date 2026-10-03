@@ -354,10 +354,21 @@
     color: var(--color-ink-muted);
   }
 
-  .forum-last-post strong {
+  .forum-last-post .forum-handle {
     display: block;
-    color: var(--color-link);
+  }
+
+  /* IPB-style member handle: white ~ + red name */
+  .forum-handle {
     font-weight: 700;
+  }
+
+  .forum-handle-tilde {
+    color: #fff;
+  }
+
+  .forum-handle-name {
+    color: #b10205;
   }
 
   /* Topic / single-post view (IPB-style) */
@@ -409,9 +420,11 @@
 
   .forum-poster-name {
     font-size: 13px;
-    font-weight: 700;
-    color: var(--color-primary-50);
     margin-bottom: 6px;
+  }
+
+  .forum-poster-name .forum-handle {
+    font-size: inherit;
   }
 
   .forum-poster-rank {
