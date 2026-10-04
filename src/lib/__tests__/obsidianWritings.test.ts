@@ -154,6 +154,22 @@ describe('obsidian writings gate', () => {
       author: 'joey',
     });
   });
+
+  it('strips Obsidian comments and keeps only wikilink labels', () => {
+    const post = noteToPost({
+      path: 'writings/secret-bits.md',
+      content:
+        '---\ntitle: Secret bits\ndate: 2026-10-03\ntags:\n  - public\n---\n\nVisible.\n\n%% hidden comment %%\n<!-- html hide -->\nSee [[private-note|alias]] and [[other-note]].\n',
+      tags: ['public'],
+      frontmatter: { title: 'Secret bits', date: '2026-10-03' },
+      stat: { ctime: 0, mtime: 0, size: 1 },
+    });
+
+    expect(post?.excerpt).toBe('Visible.\n\nSee alias and other-note.');
+    expect(post?.excerpt).not.toContain('hidden comment');
+    expect(post?.excerpt).not.toContain('html hide');
+    expect(post?.excerpt).not.toContain('[[');
+  });
 });
 
 describe('obsidian writings loaders', () => {
@@ -164,7 +180,11 @@ describe('obsidian writings loaders', () => {
       throw new Error('fetch should not run');
     };
 
-    const posts = await loadObsidianWritings({ apiKey: null, fetchImpl });
+    const posts = await loadObsidianWritings({
+      apiKey: null,
+      useFixtures: true,
+      fetchImpl,
+    });
 
     expect(calls).toBe(0);
     expect(posts.map((post) => post.slug).sort()).toEqual([
@@ -173,7 +193,29 @@ describe('obsidian writings loaders', () => {
     ]);
   });
 
-  it('treats an empty api key as unset', async () => {
+  it('returns no posts when the api key is unset and fixtures are off', async () => {
+    let calls = 0;
+    const fetchImpl: typeof fetch = async () => {
+      calls += 1;
+      throw new Error('fetch should not run');
+    };
+    const previousKey = process.env.OBSIDIAN_API_KEY;
+    const previousFlag = process.env.OBSIDIAN_USE_FIXTURES;
+    delete process.env.OBSIDIAN_API_KEY;
+    delete process.env.OBSIDIAN_USE_FIXTURES;
+    try {
+      const posts = await loadObsidianWritings({ fetchImpl });
+      expect(calls).toBe(0);
+      expect(posts).toEqual([]);
+    } finally {
+      if (previousKey === undefined) delete process.env.OBSIDIAN_API_KEY;
+      else process.env.OBSIDIAN_API_KEY = previousKey;
+      if (previousFlag === undefined) delete process.env.OBSIDIAN_USE_FIXTURES;
+      else process.env.OBSIDIAN_USE_FIXTURES = previousFlag;
+    }
+  });
+
+  it('treats an empty api key as unset and requires the fixtures flag', async () => {
     let calls = 0;
     const fetchImpl: typeof fetch = async () => {
       calls += 1;
@@ -182,7 +224,11 @@ describe('obsidian writings loaders', () => {
     const previous = process.env.OBSIDIAN_API_KEY;
     process.env.OBSIDIAN_API_KEY = 'present';
     try {
-      const posts = await loadObsidianWritings({ apiKey: '', fetchImpl });
+      const posts = await loadObsidianWritings({
+        apiKey: '',
+        useFixtures: true,
+        fetchImpl,
+      });
       expect(calls).toBe(0);
       expect(posts.map((post) => post.slug).sort()).toEqual([
         'hello-public',

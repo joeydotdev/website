@@ -136,6 +136,7 @@ export async function loadObsidianWritings(override?: {
   apiKey?: string | null;
   baseUrl?: string;
   fixtureRoot?: string;
+  useFixtures?: boolean;
   fetchImpl?: typeof fetch;
 }): Promise<Post[]> {
   const apiKey =
@@ -144,6 +145,13 @@ export async function loadObsidianWritings(override?: {
       : blankToUnset(process.env.OBSIDIAN_API_KEY);
 
   if (apiKey === undefined) {
+    const wantFixtures =
+      override?.useFixtures === true ||
+      (override !== undefined &&
+        Object.prototype.hasOwnProperty.call(override, 'fixtureRoot')) ||
+      blankToUnset(process.env.OBSIDIAN_USE_FIXTURES) === '1';
+    if (!wantFixtures) return [];
+
     const fixtureRoot =
       blankToUnset(override?.fixtureRoot) ??
       blankToUnset(process.env.OBSIDIAN_FIXTURE_ROOT) ??
@@ -203,8 +211,13 @@ function isoDate(value: string | number): string | null {
 function plainExcerpt(content: string): string {
   const text = stripFrontmatter(content)
     .body.replace(/\r\n/g, '\n')
+    .replace(/%%[\s\S]*?%%/g, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/!\[\[[^\]]*\]\]/g, '')
+    .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, target, alias) =>
+      String(alias ?? target).trim()
+    )
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
     .replace(/^#{1,6}[ \t]+(.+?)[ \t]*#*[ \t]*$/gm, '$1')
     .replace(/\*\*|__/g, '')
