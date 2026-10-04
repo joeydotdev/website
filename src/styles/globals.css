@@ -47,7 +47,7 @@
   --color-ink-muted: rgb(var(--tw-color-ink-muted));
   --color-link: rgb(var(--tw-color-link));
 
-  /* Glossy IPB olive chrome: specular → micro-grid mesh → bevel gradient */
+  /* Glossy IPB olive chrome: specular highlight + bevel gradient (no mesh) */
   --forum-gloss-fill: linear-gradient(
       to bottom,
       rgb(255 255 255 / 28%) 0%,
@@ -55,17 +55,6 @@
       rgb(255 255 255 / 0%) 42%,
       rgb(0 0 0 / 0%) 58%,
       rgb(0 0 0 / 22%) 100%
-    ),
-    /* 3px olive-brown micro-grid (classic 2000s forum tech texture) */
-      repeating-linear-gradient(
-        0deg,
-        rgb(0 0 0 / 0%) 0 2px,
-        rgb(40 38 28 / 22%) 2px 3px
-      ),
-    repeating-linear-gradient(
-      90deg,
-      rgb(0 0 0 / 0%) 0 2px,
-      rgb(40 38 28 / 22%) 2px 3px
     ),
     linear-gradient(
       to bottom,
