@@ -17,13 +17,7 @@ module.exports = {
     extend: {
       fontFamily: {
         // 2007 forum stack (Verdana/Tahoma era)
-        primary: [
-          'Verdana',
-          'Tahoma',
-          'Geneva',
-          'Arial',
-          ...fontFamily.sans,
-        ],
+        primary: ['Verdana', 'Tahoma', 'Geneva', 'Arial', ...fontFamily.sans],
       },
       colors: {
         primary: {
