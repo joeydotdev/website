@@ -1,34 +1,34 @@
 import * as React from 'react';
 
-import ButtonLink from '@/components/links/ButtonLink';
+import UnstyledLink from '@/components/links/UnstyledLink';
 
 const links = [
   { href: '/writings', label: 'Writings' },
   { href: 'https://github.com/joeydotdev', label: 'Github' },
+  { href: 'https://x.com/joeydotdev', label: 'X' },
   { href: 'https://www.linkedin.com/in/~joey/', label: 'Linkedin' },
 ];
 
 export default function Header() {
   return (
-    <header className='sticky top-0 z-50 bg-white'>
-      <div className='layout flex h-14 items-center justify-between'>
-        <ButtonLink href='/' variant='ghost' className='text-xl text-black'>
-          joey.dev
-        </ButtonLink>
-        <nav>
-          <ul className='flex items-center justify-between space-x-4'>
-            {links.map(({ href, label }) => (
-              <li key={`${href}${label}`}>
-                <ButtonLink
-                  href={href}
-                  variant='ghost'
-                  className='text-sm text-black'
-                >
-                  {label}
-                </ButtonLink>
-              </li>
-            ))}
-          </ul>
+    <header className='layout pt-2'>
+      <div className='forum-masthead'>
+        <div className='forum-banner'>
+          <UnstyledLink
+            href='/'
+            className='forum-banner-title hover:no-underline'
+          >
+            joey.dev
+          </UnstyledLink>
+        </div>
+
+        <nav className='forum-nav' aria-label='Site'>
+          {links.map(({ href, label }, i) => (
+            <React.Fragment key={`${href}${label}`}>
+              {i > 0 ? <span className='text-primary-600'>·</span> : null}
+              <UnstyledLink href={href}>{label}</UnstyledLink>
+            </React.Fragment>
+          ))}
         </nav>
       </div>
     </header>

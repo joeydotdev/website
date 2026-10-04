@@ -16,7 +16,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Inter', ...fontFamily.sans],
+        // 2007 forum stack (Verdana/Tahoma era)
+        primary: [
+          'Verdana',
+          'Tahoma',
+          'Geneva',
+          'Arial',
+          ...fontFamily.sans,
+        ],
       },
       colors: {
         primary: {
@@ -33,6 +40,18 @@ module.exports = {
           900: withOpacityValue('--tw-color-primary-900'),
         },
         dark: '#222222',
+        page: withOpacityValue('--tw-color-page'),
+        surface: withOpacityValue('--tw-color-surface'),
+        border: withOpacityValue('--tw-color-border'),
+        link: withOpacityValue('--tw-color-link'),
+        ink: {
+          DEFAULT: withOpacityValue('--tw-color-ink'),
+          muted: withOpacityValue('--tw-color-ink-muted'),
+        },
+        row: {
+          a: withOpacityValue('--tw-color-row-a'),
+          b: withOpacityValue('--tw-color-row-b'),
+        },
       },
       keyframes: {
         flicker: {
