@@ -211,8 +211,8 @@ function isoDate(value: string | number): string | null {
 function plainExcerpt(content: string): string {
   const text = stripFrontmatter(content)
     .body.replace(/\r\n/g, '\n')
-    .replace(/%%[\s\S]*?%%/g, '')
-    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/%%[\s\S]*?(?:%%|$)/g, '')
+    .replace(/<!--[\s\S]*?(?:-->|$)/g, '')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/!\[\[[^\]]*\]\]/g, '')
     .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, target, alias) =>

@@ -170,6 +170,21 @@ describe('obsidian writings gate', () => {
     expect(post?.excerpt).not.toContain('html hide');
     expect(post?.excerpt).not.toContain('[[');
   });
+
+  it('strips unclosed Obsidian and HTML comments through end of note', () => {
+    const post = noteToPost({
+      path: 'writings/open-comment.md',
+      content:
+        '---\ntitle: Open comment\ndate: 2026-10-03\ntags:\n  - public\n---\n\nIntro.\n\n%% TODO: private draft forever\n',
+      tags: ['public'],
+      frontmatter: { title: 'Open comment', date: '2026-10-03' },
+      stat: { ctime: 0, mtime: 0, size: 1 },
+    });
+
+    expect(post?.excerpt).toBe('Intro.');
+    expect(post?.excerpt).not.toContain('TODO');
+    expect(post?.excerpt).not.toContain('private draft');
+  });
 });
 
 describe('obsidian writings loaders', () => {
