@@ -89,7 +89,6 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
                 <ForumHandle name={POSTER_NAME} />
               </div>
               <ForumAvatar size='lg' className='forum-poster-avatar' />
-              <div className='forum-poster-rank'>Member</div>
               <dl className='forum-poster-stats'>
                 <div>
                   <dt>Group: </dt>
@@ -100,6 +99,10 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
                 <div>
                   <dt>Posts: </dt>
                   <dd>{postCount}</dd>
+                </div>
+                <div>
+                  <dt>IRC Nick: </dt>
+                  <dd>Joey</dd>
                 </div>
               </dl>
             </aside>
