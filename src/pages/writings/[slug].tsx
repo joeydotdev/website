@@ -44,10 +44,16 @@ export const getStaticProps: GetStaticProps<PropsType> = async (ctx) => {
 
 export default function WritingTopicPage({ post, postCount }: PropsType) {
   const postedAt = formatForumDateTime(post.date);
-  const paragraphs = (post.excerpt || '')
-    .split(/(?<=\.)\s+/)
-    .filter(Boolean)
-    .slice(0, 6);
+  const onSite = post.url.startsWith('/');
+  const paragraphs = onSite
+    ? post.excerpt
+        .split(/\n{2,}/)
+        .map((paragraph) => paragraph.trim())
+        .filter((paragraph) => paragraph.length > 0)
+    : (post.excerpt || '')
+        .split(/(?<=\.)\s+/)
+        .filter(Boolean)
+        .slice(0, 6);
 
   return (
     <Layout>
@@ -66,14 +72,16 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
             <UnstyledLink href='/writings' className='forum-btn'>
               Topic List
             </UnstyledLink>
-            <a
-              href={post.url}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='forum-btn'
-            >
-              Original Post
-            </a>
+            {onSite ? null : (
+              <a
+                href={post.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='forum-btn'
+              >
+                Original Post
+              </a>
+            )}
           </div>
 
           <div className='forum-topic-bar'>
@@ -115,17 +123,27 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
 
               <div className='forum-post-body'>
                 {paragraphs.length > 0 ? (
-                  paragraphs.map((p) => <p key={p.slice(0, 24)}>{p}</p>)
+                  paragraphs.map((paragraph) => (
+                    <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                  ))
+                ) : onSite ? (
+                  <p>{post.title}</p>
                 ) : (
                   <p>
                     {post.title}. Open the original post for the full write-up.
                   </p>
                 )}
-                <p className='mt-3'>
-                  <a href={post.url} target='_blank' rel='noopener noreferrer'>
-                    Continue reading on the original post »
-                  </a>
-                </p>
+                {onSite ? null : (
+                  <p className='mt-3'>
+                    <a
+                      href={post.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      Continue reading on the original post »
+                    </a>
+                  </p>
+                )}
               </div>
 
               <div className='forum-post-foot'>
@@ -139,14 +157,16 @@ export default function WritingTopicPage({ post, postCount }: PropsType) {
                   </UnstyledLink>
                 </div>
                 <div className='forum-btn-row'>
-                  <a
-                    href={post.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='forum-btn'
-                  >
-                    + Quote
-                  </a>
+                  {onSite ? null : (
+                    <a
+                      href={post.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='forum-btn'
+                    >
+                      + Quote
+                    </a>
+                  )}
                   <UnstyledLink href='/writings' className='forum-btn'>
                     Reply
                   </UnstyledLink>

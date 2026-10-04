@@ -1,34 +1,37 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
 
+import { assignSlugs, loadObsidianWritings } from '@/lib/obsidianWritings';
 import { type Post, htmlToText, POSTER_NAME, slugify } from '@/lib/posts';
 
 export async function getPosts(): Promise<Post[]> {
   const blogDirectory = path.join(process.cwd(), './src/blog/');
-  const [mediumPosts, cscareersPosts, tumblrPosts] = await Promise.all([
-    fetch(
-      'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@joeydotdev'
-    )
-      .then((res) => res.json())
-      .then((data) => data.items)
-      .catch(() => null),
-    fetch('https://www.cscareers.dev/api/getBlogPostsByAuthor?author=joey')
-      .then((res) => res.json())
-      .then((data) => data.posts)
-      .catch(() => null),
-    readFile(`${blogDirectory}tumblr.json`, 'utf8')
-      .then(
-        (data) =>
-          JSON.parse(data) as Array<{
-            title: string;
-            date: string;
-            url: string;
-          }>
+  const [mediumPosts, cscareersPosts, tumblrPosts, obsidianPosts] =
+    await Promise.all([
+      fetch(
+        'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@joeydotdev'
       )
-      .catch(() => null),
-  ]);
+        .then((res) => res.json())
+        .then((data) => data.items)
+        .catch(() => null),
+      fetch('https://www.cscareers.dev/api/getBlogPostsByAuthor?author=joey')
+        .then((res) => res.json())
+        .then((data) => data.posts)
+        .catch(() => null),
+      readFile(`${blogDirectory}tumblr.json`, 'utf8')
+        .then(
+          (data) =>
+            JSON.parse(data) as Array<{
+              title: string;
+              date: string;
+              url: string;
+            }>
+        )
+        .catch(() => null),
+      loadObsidianWritings(),
+    ]);
 
-  const posts: Post[] = [
+  const external: Post[] = [
     ...Array.from(mediumPosts || []).map(
       // @ts-expect-error RSS item shape varies by feed
       (item: {
@@ -73,7 +76,11 @@ export async function getPosts(): Promise<Post[]> {
         author: POSTER_NAME,
       };
     }),
-  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  ];
+
+  const posts = [...external, ...assignSlugs(external, obsidianPosts)].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   return posts;
 }
