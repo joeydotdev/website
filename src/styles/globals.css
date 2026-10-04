@@ -312,6 +312,7 @@
   }
 
   .forum-masthead {
+    /* Single outer border — banner + nav read as one card */
     border: 1px solid var(--color-border);
     margin-bottom: 6px;
   }
@@ -346,9 +347,14 @@
     align-items: center;
     justify-content: flex-end;
     gap: 10px;
-    /* Match banner bottom olive (primary-900) instead of near-black row-b */
-    border-top: 1px solid rgb(var(--tw-color-primary-700) / 0.45);
-    background: var(--color-primary-900);
+    /* Short fade continuing banner bottom olive → primary-900; no inner seam */
+    background: linear-gradient(
+        to bottom,
+        var(--color-primary-900) 0%,
+        rgb(var(--tw-color-primary-900)) 55%,
+        rgb(0 0 0 / 14%) 100%
+      ),
+      var(--color-primary-900);
     padding: 4px 10px;
     font-size: 11px;
   }
